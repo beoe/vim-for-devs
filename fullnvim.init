@@ -1,17 +1,17 @@
 call plug#begin('~/.config/nvim/plugged')
-	Plug 'neovim/nvim-lspconfig'
+    Plug 'neovim/nvim-lspconfig'
     Plug 'kabouzeid/nvim-lspinstall'
     Plug 'hrsh7th/nvim-compe'
-	Plug 'airblade/vim-gitgutter'
-	Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
-	Plug 'https://github.com/scrooloose/nerdtree.git'
-	Plug 'arcticicestudio/nord-vim'
-	Plug 'https://github.com/tpope/vim-fugitive'
-	Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
-	Plug 'tpope/vim-surround'
-	Plug 'tpope/vim-commentary'
-	Plug 'Raimondi/delimitMate'  " auto (),... for vim
+    Plug 'airblade/vim-gitgutter'
+    Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
+    Plug 'https://github.com/scrooloose/nerdtree.git'
+    Plug 'arcticicestudio/nord-vim'
+    Plug 'https://github.com/tpope/vim-fugitive'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-commentary'
+    Plug 'Raimondi/delimitMate'  " auto (),... for vim
     Plug 'ntpeters/vim-better-whitespace'
 call plug#end()
 lua << EOF
@@ -136,5 +136,5 @@ noremap <Leader>p "+p
 " position when opening a file.
 autocmd BufReadPost *
       \ if line("'\"") > 1 && line("'\"") <= line("$") |
-      \	exe "normal! g`\"" |
+      \ exe "normal! g`\"" |
       \ endif
