@@ -1,0 +1,102 @@
+call plug#begin('~/.vim/plugged')
+	Plug 'airblade/vim-gitgutter'
+	Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
+	Plug 'https://github.com/scrooloose/nerdtree.git'
+	Plug 'arcticicestudio/nord-vim'
+	Plug 'https://github.com/tpope/vim-fugitive'
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
+	Plug 'tpope/vim-surround'
+	Plug 'tpope/vim-commentary'
+	Plug 'Raimondi/delimitMate'  " auto (),... for vim
+    Plug 'ntpeters/vim-better-whitespace'
+call plug#end()
+
+set wildignore+=*/.git/*,*/node_modules/*
+let mapleader = ","
+nmap <leader>w :up<cr>
+nmap <leader>n :NERDTreeToggle<cr>
+nmap <leader>f :NERDTreeFind<cr>
+colorscheme nord
+
+" automatically show nerdtree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+
+" airline
+set noshowmode
+"let g:airline_theme='nord'
+set nocursorline
+let g:airline#extensions#tabline#enabled = 1
+
+
+set ignorecase                  " Search case insensitive...
+set smartcase                   " ... but not when search pattern contains upper case characters
+set autowrite                   " Automatically save before :next, :make etc.
+set autoread                    " Automatically reread changed files without asking me anything
+
+set autoindent
+set complete-=i
+set showmatch
+set smarttab
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+set noswapfile
+set incsearch
+set hlsearch
+set shiftround
+
+set complete=.,w,b,u,t
+set completeopt=longest,menuone
+
+nnoremap <leader>ga :Git add %:p<CR><CR>
+nnoremap <leader>gs :Git<CR>
+nnoremap <leader>gp :Git push<CR>
+vnoremap <leader>gb :Git blame<CR>
+nnoremap <leader>gc :Git commit<CR>
+nnoremap <leader>gm :GMove
+nnoremap <leader>gg :Ggrep <cword><CR>
+nnoremap <space> zz
+imap jk <ESC>l
+imap jj <ESC>l
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" auto strip whitespace except for file with extention blacklisted
+let blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
+autocmd BufWritePre * if index(blacklist, &ft) < 0 | StripWhitespace
+autocmd! BufWritePost $MYVIMRC source $MYVIMRC | echom "Reloaded vimrc"
+
+" strip all whitespace
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+" Buffer prev/next
+"nnoremap <C-x> :bnext<CR>
+"nnoremap <C-z> :bprev<CR>
+"
+" Remove search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+
+"quickfix:
+map <C-n> :cn<CR>
+map <C-m> :cp<CR>
+" Close quickfix easily
+nnoremap <leader>o :copen<CR>
+nnoremap <leader>a :cclose<CR>
+
+
+noremap <Leader>y "+y
+noremap <Leader>p "+p
+
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+" Also don't do it when the mark is in the first line, that is the default
+" position when opening a file.
+autocmd BufReadPost *
+      \ if line("'\"") > 1 && line("'\"") <= line("$") |
+      \	exe "normal! g`\"" |
+      \ endif
